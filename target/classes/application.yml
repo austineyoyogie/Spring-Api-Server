@@ -1,0 +1,74 @@
+jwt:
+    secret: ${JWT_SECRET}
+    expiration: ${JWT_EXPIRATION}
+
+spring:
+    profiles:
+        active: ${ACTIVE_PROFILE:dev}
+    jackson:
+        default-property-inclusion: non-null
+        serialization:
+            fail-on-empty-beans: false
+            close-closeable: true
+            flush-after-write-value: true
+            write-dates-as-timestamps: false
+        deserialization:
+            fail-on-unknown-properties: false
+    datasource:
+        url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+        username: ${MYSQL_USERNAME}
+        password: ${MYSQL_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        open-in-view: false
+        database-platform: org.hibernate.dialect.MySQLDialect
+        generate-ddl: true
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                globally_quoted_identifiers: true
+                database-platform: org.hibernate.dialect.MySQLDialect
+                format_sql: true
+    sql:
+        init:
+            mode: never
+            continue-on-error: false
+    servlet:
+        multipart:
+            enabled: true
+            max-file-size: 1000MB
+            max-request-size: 1000MB
+    mail:
+        host: ${EMAIL_HOST}
+        port: ${EMAIL_PORT}
+        username: ${EMAIL_ID}
+        password: ${EMAIL_PASSWORD}
+        properties:
+            mail:
+                mime:
+                    charset: UTF
+                smpt:
+                    writetimeout: 10000
+                    connectiontimeout: 10000
+                    timeout: 10000
+                    auth: true
+                    starttls:
+                        enable: true
+                        required: true
+        verify:
+            host: ${VERIFY_EMAIL_HOST}   
+server:
+    error:
+        path: /auth/error
+        whitelabel:
+            enabled: false
+    port: ${CONTAINER_PORT:8080}
+
+ui:
+    app:
+        url: ${UI_API_URL}
+application:
+    title: S J 0 7 W H S
+    version: 1.0
